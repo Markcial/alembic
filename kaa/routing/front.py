@@ -1,3 +1,4 @@
+from kaa.model import Customer
 from flask import Blueprint
 
 router = Blueprint(
@@ -8,7 +9,12 @@ router = Blueprint(
 
 @router.route('/')
 def index():
-    return 'index'
+    c = Customer()
+    c.name = 'Agustin'
+    c.email = 'agustin@ulabox.com'
+    c.save()
+
+    return 'index' + c.uuid
 
 @router.route('/about')
 def about():

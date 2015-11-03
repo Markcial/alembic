@@ -9,6 +9,7 @@ RUN apt-get -y update
 RUN apt-get -y install bash vim curl wget
 RUN apt-get -y install python python-pip
 RUN apt-get -y install redis-tools
+RUN apt-get -y install debian-keyring debian-archive-keyring
 
 # install node and npm packages
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -

@@ -1,2 +1,3 @@
 #!/bin/sh
+cd /Project/assets;
 webpack-dev-server --progress --colors --host 0.0.0.0
