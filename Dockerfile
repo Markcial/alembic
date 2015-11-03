@@ -4,16 +4,26 @@ ENV PATH=$PATH:/Project/bin
 
 RUN mkdir /Project
 RUN apt-get -y update
-RUN apt-get -y install bash
-RUN apt-get -y install vim
-RUN apt-get -y install python
-RUN apt-get -y install python-pip
-RUN apt-get -y install wget
+
+# install base packages
+RUN apt-get -y install bash vim curl wget
+RUN apt-get -y install python python-pip
+RUN apt-get -y install redis-tools
+
+# install node and npm packages
+RUN curl -sL https://deb.nodesource.com/setup_4.x | bash -
+RUN apt-get update
+RUN apt-get install -y nodejs
+RUN npm install webpack -g
+
+# install fish shell
 RUN wget http://download.opensuse.org/repositories/shells:fish:release:2/Debian_8.0/Release.key; \
     apt-key add - < Release.key
 RUN echo 'deb http://download.opensuse.org/repositories/shells:/fish:/release:/2/Debian_8.0/ /' >> /etc/apt/sources.list.d/fish.list
 RUN apt-get update
 RUN apt-get -y install fish
+
+# install python packages
 RUN pip install flask
 RUN pip install redis
 RUN pip install gunicorn
@@ -25,10 +35,19 @@ RUN cd /usr/lib/python2.7/dist-packages/; \
     unzip pyv8-linux64.zip; \
     rm pyv8-linux64.zip
 RUN pip install PyReact
-RUN apt-get -y install redis-tools
+
+# install livereload development libraries
+RUN npm install webpack-dev-server -g
+RUN cd /Project/assets; npm install css-loader style-loader
+
+# project configuration
 ADD . /Project
 RUN chmod a+x /Project/bin/*
 RUN echo 'root:root' | chpasswd
-EXPOSE 5000
 
+# expose ports
+EXPOSE 5000 5000
+EXPOSE 8080 8080
+
+# entrypoint in a shell
 ENTRYPOINT /usr/bin/fish
