@@ -1,4 +1,0 @@
->>> b = Base()
->>> b._load() # doctest: +ELLIPSIS
-Called r.get(
-    <bound method Base.identifier of ...>)

@@ -1,6 +1,0 @@
->>> identifier = Identifier()
->>> identifier
-some-random-uuid
->>> identifier = Identifier('already-defined-uuid')
->>> identifier
-already-defined-uuid

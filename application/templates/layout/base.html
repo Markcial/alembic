@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+      <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  </head>
+  <body>
+
+    {% include 'shared/navbar.html' %}
+
+    <div class="row">
+      <div class="col s3">
+        <div class="center-align">
+          <!-- Grey navigation panel -->
+          <div class="collection">
+          {% for box in boxes %}
+          <div class="collection-item avatar">
+            <i class="material-icons circle {% if box.Status == 'running' %}green{% else %}red{% endif %}">power_settings_new</i>
+            {{box.Name}}
+            <a class="secondary-content" href="{{ url_for('docker.settings', name=box.Name) }}"><i class="material-icons">settings</i></a>
+          </div>
+          {% endfor %}
+          </div>
+
+          <a class="waves-effect waves-light btn" href="{{url_for('docker.mysql_new')}}"><i class="material-icons left">launch</i>new box</a>
+        </div>
+      </div>
+
+      <div class="col s9">
+        <!-- Teal page content  -->
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+
+    {% include 'shared/footer.html' %}
+  </body>
+</html>
